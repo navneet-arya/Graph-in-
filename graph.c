@@ -1,8 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
-#define null NULL
 
-typedef struct Node{
+struct Node{
  int value;
  int *next;
  struct Node *adj;
@@ -20,7 +19,7 @@ void addEdge(int,int,int);
 struct Node *search(int);
 void display();
  
-struct Node *start=null;
+struct Node *start=NULL;
 
 int main(){
  int choice,cost,i;
@@ -61,26 +60,26 @@ void addnode(int n){
  struct Node *new_node,*p;
 // printf("%u",start);
  new_node=(struct Node *)malloc(sizeof(struct Node));
- if(start==null){
+ if(start==NULL){
   new_node->value=n;
-  new_node->next=null;
-  new_node->adj=null;
+  new_node->next=NULL;
+  new_node->adj=NULL;
   start=new_node;
-  printf("\n Created.... \n");
+  printf("Created.... \n");
  }
  else{
  p=start;
-  while(p->next!=null)
+  while(p->next!=NULL)
    p=p->next;
   p->next=new_node;
   new_node->value=n;
-  new_node->adj=null;
-  new_node->next=null;
-  printf("\n Created.... \n");
+  new_node->adj=NULL;
+  new_node->next=NULL;
+  printf("Created.... \n");
  }/*
  p=start;
  printf("---------nodes are --------------\n");
- while(p->next!=null){
+ while(p->next!=NULL){
   printf("%d ",p->node);
   p=p->next;
  }
@@ -93,7 +92,6 @@ void addEdge(int source,int destination,int cost){
  struct Edge *new_edge,*p;
  
  found_source=search(source);
- //printf("pointer value of source %d \n",found_source);
  if(found_source==0)
   printf("\n------- Source doesn't exits.-------\n");
   else{
@@ -105,30 +103,30 @@ void addEdge(int source,int destination,int cost){
    else{
     new_edge=(struct Edge *)malloc(sizeof(struct Edge));
     
-    if(found_source->adj==null){
+    if(found_source->adj==NULL){
      found_source->adj=new_edge;
      new_edge->weight=cost;
      new_edge->dest=found_destination;
-     new_edge->link=null;
-     printf("%d Edge created....\n",new_edge->dest->value);
+     new_edge->link=NULL;
+     printf("Edge created....\n");//,new_edge->dest->value);
     }
     else{
      p=found_source->adj;
-     if(p->link==null){
+     if(p->link==NULL){
       p->link=new_edge;
       new_edge->weight=cost;
       new_edge->dest=found_destination;
-      new_edge->link=null;
-      printf("%d Edge created....\n",new_edge->dest->value);
+      new_edge->link=NULL;
+      printf("Edge created....\n");//,new_edge->dest->value);
      }
-     while(p->link!=null)
+     while(p->link!=NULL)
       p=p->link;
 
      p->link=new_edge;
      new_edge->weight=cost;
      new_edge->dest=found_destination;
-     new_edge->link=null;
-     printf("%d Edge created....\n",new_edge->dest->value);
+     new_edge->link=NULL;
+     printf("Edge created....\n");//,new_edge->dest->value);
     }
    }
  }
@@ -139,7 +137,7 @@ struct Node *search(int data){
  struct Node *p;
  //printf("inside the search\n");
  p=start;
- while(p->next!=null){
+ while(p->next!=NULL){
   //printf("inside the while\n");
   if(p->value==data)
    return p;
@@ -155,39 +153,39 @@ void display(){
 struct Node *q;
 struct Edge *p_edge;
 
-printf("-------- Node --------\n");
-q=start;
- while(q->next!=null){
-  printf("%d  ",q->value);
-  q=q->next;
-  }
-  printf("%d",q->value);
-printf("\n--------------------------\n");
+if(start==NULL){
+ printf("---- Graph is Empty ----\n");
+ return;
+}
 
 printf("-----------------------------------\n");
  q=start;
- while(q->next!=null){
+ while(q->next!=NULL){
   printf("%d\t",q->value);
-  if(q->adj!=null){
+  if(q->adj!=NULL){
    p_edge=q->adj;
-   while(p_edge->link!=null){
+   while(p_edge->link!=NULL){
     printf("%d ",p_edge->dest->value);
     p_edge=p_edge->link;
    }
    printf("%d ",p_edge->dest->value);
    printf("\n");
   }
+  else
+   printf("** No Connection Present **\n");
   q=q->next;
  }
  printf("%d\t",q->value);
- if(q->adj!=null){
+ if(q->adj!=NULL){
    p_edge=q->adj;
-   while(p_edge->link!=null){
+   while(p_edge->link!=NULL){
     printf("%d ",p_edge->dest->value);
     p_edge=p_edge->link;
    }
    printf("%d ",p_edge->dest->value);
    printf("\n");
   }
- printf("\n-------------------------------------\n");
+  else
+   printf("** No Connection Present **\n");
+ printf("-------------------------------------\n");
 }
